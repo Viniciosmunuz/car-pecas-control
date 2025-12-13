@@ -1,11 +1,9 @@
-
 import React from 'react';
 import { Layout } from '@/components/Layout';
-import { Package, ShoppingCart, BarChart, ArrowRight } from 'lucide-react';
+import { Package, ShoppingCart, BarChart, ArrowRight, TrendingUp, AlertTriangle, DollarSign, Wrench } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Index = () => {
-  // Dados fictícios para o dashboard
   const stats = {
     produtosTotal: 245,
     produtosBaixoEstoque: 18,
@@ -19,84 +17,119 @@ const Index = () => {
     {
       title: 'Gestão de Estoque',
       description: 'Controle e gerencie seu estoque de peças automotivas com facilidade.',
-      icon: <Package className="h-12 w-12 text-autoparts-blue" />,
+      icon: <Package className="h-10 w-10" />,
       link: '/estoque',
-      color: 'from-blue-50 to-indigo-100'
+      gradient: 'from-blue-500 to-blue-600'
     },
     {
       title: 'Vendas e Comanda',
       description: 'Registre vendas com diferentes métodos de pagamento e emita comandas.',
-      icon: <ShoppingCart className="h-12 w-12 text-autoparts-blue" />,
+      icon: <ShoppingCart className="h-10 w-10" />,
       link: '/vendas',
-      color: 'from-emerald-50 to-teal-100'
+      gradient: 'from-emerald-500 to-emerald-600'
     },
     {
       title: 'Controle Financeiro',
       description: 'Acompanhe receitas, despesas e lucros com relatórios detalhados.',
-      icon: <BarChart className="h-12 w-12 text-autoparts-blue" />,
+      icon: <BarChart className="h-10 w-10" />,
       link: '/financeiro',
-      color: 'from-amber-50 to-yellow-100'
+      gradient: 'from-amber-500 to-orange-500'
     }
   ];
 
   return (
     <Layout>
       <div className="space-y-8">
-        <div className="text-center max-w-3xl mx-auto mb-12 animate-slide-up">
-          <h1 className="text-4xl font-bold text-autoparts-darkgray mb-4">
-            Sistema de Gestão para Auto Peças
-          </h1>
-          <p className="text-lg text-gray-600">
-            Controle seu estoque, gerencie vendas e monitore suas finanças em um único lugar.
-          </p>
+        {/* Hero Section */}
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-primary/70 p-8 md:p-12 text-white">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-2xl" />
+          
+          <div className="relative z-10 max-w-2xl">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-3 bg-white/20 rounded-xl backdrop-blur-sm">
+                <Wrench className="h-8 w-8" />
+              </div>
+              <div>
+                <h1 className="text-3xl md:text-4xl font-bold">Auto Peças Nova Opção</h1>
+                <p className="text-white/80 text-sm">Sistema de Gestão Completo</p>
+              </div>
+            </div>
+            <p className="text-lg text-white/90 mt-4">
+              Controle seu estoque, gerencie vendas e monitore suas finanças em um único lugar.
+            </p>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {/* Cards de Navegação */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {featuredCards.map((card, index) => (
             <Link 
               to={card.link} 
               key={index}
-              className={`bg-gradient-to-br ${card.color} rounded-xl p-6 neomorphism hover-scale`}
+              className="group relative overflow-hidden rounded-2xl bg-card border border-border p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
             >
-              <div className="flex flex-col h-full">
-                <div className="mb-4">
+              <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+              
+              <div className="relative z-10">
+                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${card.gradient} text-white mb-4 group-hover:scale-110 transition-transform duration-300`}>
                   {card.icon}
                 </div>
-                <h2 className="text-xl font-semibold text-autoparts-darkgray mb-2">{card.title}</h2>
-                <p className="text-gray-600 mb-6 flex-grow">{card.description}</p>
-                <div className="flex items-center text-autoparts-blue">
-                  <span className="font-medium">Acessar</span>
-                  <ArrowRight className="h-4 w-4 ml-1" />
+                <h2 className="text-xl font-semibold text-foreground group-hover:text-white mb-2 transition-colors">{card.title}</h2>
+                <p className="text-muted-foreground group-hover:text-white/80 mb-4 transition-colors">{card.description}</p>
+                <div className="flex items-center text-primary group-hover:text-white font-medium transition-colors">
+                  <span>Acessar</span>
+                  <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
             </Link>
           ))}
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm p-6 animate-fade-in">
-          <h2 className="text-xl font-semibold text-autoparts-darkgray mb-4">Resumo Geral</h2>
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="bg-card rounded-xl border border-border p-5 shadow-sm hover:shadow-md transition-shadow">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm font-medium text-muted-foreground">Produtos em Estoque</span>
+              <div className="p-2 bg-blue-100 rounded-lg">
+                <Package className="h-4 w-4 text-blue-600" />
+              </div>
+            </div>
+            <div className="text-3xl font-bold text-foreground">{stats.produtosTotal}</div>
+            <p className="text-xs text-muted-foreground mt-1">itens cadastrados</p>
+          </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="bg-autoparts-gray rounded-lg p-4">
-              <h3 className="text-sm font-medium text-gray-500 mb-1">Produtos em Estoque</h3>
-              <div className="flex justify-between items-end">
-                <div className="text-2xl font-bold text-autoparts-darkgray">{stats.produtosTotal}</div>
-                <div className="text-sm text-red-500">{stats.produtosBaixoEstoque} com estoque baixo</div>
+          <div className="bg-card rounded-xl border border-border p-5 shadow-sm hover:shadow-md transition-shadow">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm font-medium text-muted-foreground">Estoque Baixo</span>
+              <div className="p-2 bg-red-100 rounded-lg">
+                <AlertTriangle className="h-4 w-4 text-red-600" />
               </div>
             </div>
-            
-            <div className="bg-autoparts-gray rounded-lg p-4">
-              <h3 className="text-sm font-medium text-gray-500 mb-1">Vendas de Hoje</h3>
-              <div className="flex justify-between items-end">
-                <div className="text-2xl font-bold text-autoparts-darkgray">{stats.vendasHoje}</div>
-                <div className="text-sm text-autoparts-blue">R$ {stats.vendasValor.toFixed(2)}</div>
+            <div className="text-3xl font-bold text-destructive">{stats.produtosBaixoEstoque}</div>
+            <p className="text-xs text-muted-foreground mt-1">produtos para repor</p>
+          </div>
+          
+          <div className="bg-card rounded-xl border border-border p-5 shadow-sm hover:shadow-md transition-shadow">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm font-medium text-muted-foreground">Vendas Hoje</span>
+              <div className="p-2 bg-emerald-100 rounded-lg">
+                <TrendingUp className="h-4 w-4 text-emerald-600" />
               </div>
             </div>
-            
-            <div className="bg-autoparts-gray rounded-lg p-4">
-              <h3 className="text-sm font-medium text-gray-500 mb-1">Lucro do Mês</h3>
-              <div className="text-2xl font-bold text-green-600">R$ {stats.lucroMes.toFixed(2)}</div>
+            <div className="text-3xl font-bold text-foreground">{stats.vendasHoje}</div>
+            <p className="text-xs text-primary mt-1">R$ {stats.vendasValor.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
+          </div>
+          
+          <div className="bg-card rounded-xl border border-border p-5 shadow-sm hover:shadow-md transition-shadow">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm font-medium text-muted-foreground">Lucro do Mês</span>
+              <div className="p-2 bg-amber-100 rounded-lg">
+                <DollarSign className="h-4 w-4 text-amber-600" />
+              </div>
             </div>
+            <div className="text-3xl font-bold text-emerald-600">R$ {stats.lucroMes.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</div>
+            <p className="text-xs text-muted-foreground mt-1">resultado positivo</p>
           </div>
         </div>
       </div>
