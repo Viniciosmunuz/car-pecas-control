@@ -1,69 +1,64 @@
-# Welcome to your Lovable project
+# Auto Peças Nova Opção — sistema de gestão
 
-## Project info
+Painel para uma loja de autopeças acompanhar o negócio num lugar só: estoque,
+vendas e financeiro em telas separadas, com o resumo do dia na abertura. No lugar
+da planilha que some, quebra a fórmula e ninguém sabe qual é a versão certa.
 
-**URL**: https://lovable.dev/projects/8894ab09-41d5-4279-8246-254fc362a384
+## As quatro telas
 
-## How can I edit this code?
+| Tela | O que faz |
+| --- | --- |
+| **Início** | Resumo do dia: produtos em estoque, produtos com estoque baixo, vendas de hoje e lucro do mês |
+| **Estoque** | Cadastro de produtos — nome, descrição, categoria, preço, quantidade e imagem — com edição, exclusão e aviso de estoque baixo |
+| **Vendas** | Monta o carrinho a partir do estoque, registra cliente, telefone e forma de pagamento, e fecha a venda |
+| **Financeiro** | Lança despesas por categoria (aluguel, salários, impostos, fornecedores, manutenção, água/luz/internet) e mostra o relatório com gráficos |
 
-There are several ways of editing your application.
+## Onde os dados ficam
 
-**Use Lovable**
+**No próprio navegador**, em `localStorage`, sob três chaves: `products`, `sales`
+e `expenses`. Não há servidor nem banco de dados.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/8894ab09-41d5-4279-8246-254fc362a384) and start prompting.
+Vale saber o que isso significa antes de usar no balcão:
 
-Changes made via Lovable will be committed automatically to this repo.
+- os dados vivem no computador e no navegador onde foram digitados — outro
+  aparelho não enxerga o mesmo estoque;
+- limpar os dados de navegação apaga tudo, e não existe backup automático;
+- em compensação, nada sai daqui: o que você digita não é enviado para lugar
+  nenhum.
 
-**Use your preferred IDE**
+Para virar multiusuário, o caminho é trocar o `localStorage` por uma API com banco
+de dados. As telas continuariam as mesmas — só a camada que lê e grava mudaria.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Rodando
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Precisa de [Node.js](https://nodejs.org).
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+O Vite sobe em `http://localhost:5173`.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Também existem `npm run build`, que gera a pasta `dist/`, e `npm run preview`, que
+serve esse build para conferir antes de publicar.
 
-**Use GitHub Codespaces**
+## Stack
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- **React 18** com **TypeScript**, empacotado pelo **Vite**
+- **Tailwind CSS** e **shadcn/ui** (componentes acessíveis sobre Radix)
+- **React Router** nas quatro rotas
+- **React Hook Form** com **Zod** nos formulários
+- **Recharts** nos gráficos do financeiro
+- **date-fns** nas datas e **lucide-react** nos ícones
 
-## What technologies are used for this project?
+## Origem do projeto
 
-This project is built with .
+A base foi gerada com o [Lovable](https://lovable.dev) e ajustada depois. O
+histórico do repositório mostra as etapas: a estrutura inicial em Vite + React +
+shadcn, o sistema de estoque e financeiro, e por último a troca de nome e os
+ajustes de interface.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+---
 
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/8894ab09-41d5-4279-8246-254fc362a384) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+Feito por **Vinicios Muniz** — [github.com/Viniciosmunuz](https://github.com/Viniciosmunuz)
